@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.Controllers;
 
-[Authorize]
+
 public class UsersController(DataContext context) : BaseApiController
 {
     [AllowAnonymous]
