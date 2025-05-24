@@ -11,7 +11,8 @@ public class TokenService(IConfiguration config) : ITokenService
 {
     public string CreateToken(AppUser user)
     {
-        var tokenKey = config["TokenKey"] ?? throw new Exception("TokenKey is null");
+        // Fix the key configuration path to match what's used in IdentityServiceExtensions
+        var tokenKey = config["JWT:TokenKey"] ?? throw new Exception("JWT:TokenKey is null");
         if (tokenKey.Length < 64) throw new Exception("TokenKey is too short");
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKey));
 
@@ -27,13 +28,11 @@ public class TokenService(IConfiguration config) : ITokenService
             Subject = new ClaimsIdentity(claims),
             Expires = DateTime.UtcNow.AddDays(7),
             SigningCredentials = creds
-
         };
 
         var tokenHandler = new JwtSecurityTokenHandler();
         var token = tokenHandler.CreateToken(tokenDescriptor);
         
         return tokenHandler.WriteToken(token);
-
     }
 }

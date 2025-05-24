@@ -15,7 +15,7 @@ public class UsersController(DataContext context) : BaseApiController
     public async Task <ActionResult<IEnumerable<AppUser>>> GetUsers()
     {
         var users = await context.Users.ToListAsync();
-        return Ok(users);
+        return users;
     }
     
     [Authorize]

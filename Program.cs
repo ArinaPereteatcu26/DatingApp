@@ -4,6 +4,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
+
+// Add this line to explicitly set the controllers
+builder.Services.AddControllers();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -19,14 +23,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-
-app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200" , "https://localhost:4200"));
+app.UseCors(x => x.AllowAnyHeader()
+    .AllowAnyMethod()
+    .WithOrigins("http://localhost:4200", "https://localhost:4200"));
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+// Updated to use the API controllers correctly
+app.MapControllers();
 
 app.Run();

@@ -1,0 +1,18 @@
+/* Dropdown styling */
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-item {
+  cursor: pointer;
+}
+
+/* Navigation link active state */
+.nav-link.active {
+  font-weight: bold;
+}
+
+/* Add cursor pointer to clickable elements */
+a[href], button, .cursor-pointer {
+  cursor: pointer;
+}

@@ -13,132 +13,210 @@
         </div>
       </div>
 
-      <!-- Center - Navigation links -->
-      <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-        <div class="hidden sm:ml-8 sm:block">
-          <div class="flex space-x-1">
-            <a href="#" class="rounded-md bg-white bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 transition duration-150">
-              <span class="flex items-center">
-                <svg class="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path>
-                </svg>
-                Matches
-              </span>
+      <!-- Center - Navigation links (Only shown when logged in) -->
+      @if (accountService.currentUser()) {
+        <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+          <div class="hidden sm:ml-8 sm:block">
+            <div class="flex space-x-1">
+              <a href="#" class="rounded-md bg-white bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 transition duration-150">
+                <span class="flex items-center">
+                  <svg class="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path>
+                  </svg>
+                  Matches
+                </span>
+              </a>
+              <a href="#" class="rounded-md px-4 py-2 text-sm font-medium text-white hover:bg-white hover:bg-opacity-20 transition duration-150">
+                <span class="flex items-center">
+                  <svg class="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                  </svg>
+                  Lists
+                </span>
+              </a>
+              <a href="#" class="rounded-md px-4 py-2 text-sm font-medium text-white hover:bg-white hover:bg-opacity-20 transition duration-150">
+                <span class="flex items-center">
+                  <svg class="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"></path>
+                    <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"></path>
+                  </svg>
+                  Messages
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Right side content - depends on login state -->
+      @if (accountService.currentUser()) {
+        <div class="dropdown-container hidden sm:flex">
+          <div
+            class="text-white flex items-center cursor-pointer select-none"
+            (click)="toggleDropdown($event)">
+            <span class="hidden sm:inline">Welcome user</span>
+            <svg class="h-4 w-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <!-- Dropdown menu -->
+          <div
+            class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white py-1 z-50"
+            [ngClass]="{'hidden': !dropdownOpen}"
+          >
+            <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
+              Edit profile
             </a>
-            <a href="#" class="rounded-md px-4 py-2 text-sm font-medium text-white hover:bg-white hover:bg-opacity-20 transition duration-150">
-              <span class="flex items-center">
-                <svg class="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
-                </svg>
-                Lists
-              </span>
-            </a>
-            <a href="#" class="rounded-md px-4 py-2 text-sm font-medium text-white hover:bg-white hover:bg-opacity-20 transition duration-150">
-              <span class="flex items-center">
-                <svg class="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"></path>
-                  <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"></path>
-                </svg>
-                Messages
-              </span>
+            <a
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+              (click)="logout()"
+            >
+              Logout
             </a>
           </div>
         </div>
-      </div>
 
-      <!-- Right side - Login Form (Desktop) -->
-      <div class="hidden sm:flex sm:items-center">
-        <div class="flex items-center space-x-2">
-          <div class="relative">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <svg class="h-4 w-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
-              </svg>
-            </div>
-            <input type="text" placeholder="Username" class="rounded-lg pl-10 pr-3 py-2 text-sm text-gray-800 border border-transparent focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50 shadow-sm" />
-          </div>
-          <div class="relative">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <svg class="h-4 w-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
-              </svg>
-            </div>
-            <input type="password" placeholder="Password" class="rounded-lg pl-10 pr-3 py-2 text-sm text-gray-800 border border-transparent focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50 shadow-sm" />
-          </div>
-          <button class="bg-white text-pink-600 rounded-lg px-4 py-2 text-sm font-medium hover:bg-pink-50 shadow-sm transition duration-150 flex items-center">
-            <svg class="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+        <!-- Mobile menu button (only shown when logged in) -->
+        <div class="ml-4 sm:hidden">
+          <button type="button"
+                  (click)="toggleMobileMenu()"
+                  class="relative inline-flex items-center justify-center rounded-full p-2 text-white hover:bg-white hover:bg-opacity-20 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-40 transition duration-150"
+                  aria-controls="mobile-menu"
+                  [attr.aria-expanded]="isMobileMenuOpen">
+            <span class="sr-only">Open main menu</span>
+            <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
-            Login
           </button>
         </div>
-      </div>
+      }
 
-      <!-- Mobile menu button -->
-      <div class="absolute inset-y-0 right-0 flex items-center sm:hidden">
-        <button type="button"
-                (click)="toggleMobileMenu()"
-                class="relative inline-flex items-center justify-center rounded-full p-2 text-white hover:bg-white hover:bg-opacity-20 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-40 transition duration-150"
-                aria-controls="mobile-menu"
-                [attr.aria-expanded]="isMobileMenuOpen">
-          <span class="sr-only">Open main menu</span>
-          <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-      </div>
+      @if (!accountService.currentUser()) {
+        <!-- Login form for desktop when not logged in -->
+        <form (ngSubmit)="login()" #loginForm="ngForm" autocomplete="off" class="hidden sm:flex sm:items-center">
+          <div class="flex items-center space-x-2">
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg class="h-4 w-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <input type="text"
+                     name="username"
+                     [(ngModel)]="model.username"
+                     placeholder="Username"
+                     class="rounded-lg pl-10 pr-3 py-2 text-sm text-gray-800 border border-transparent focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50 shadow-sm" />
+            </div>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg class="h-4 w-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <input type="password"
+                     name="password"
+                     [(ngModel)]="model.password"
+                     placeholder="Password"
+                     class="rounded-lg pl-10 pr-3 py-2 text-sm text-gray-800 border border-transparent focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50 shadow-sm" />
+            </div>
+            <button type="submit" class="bg-white text-pink-600 rounded-lg px-4 py-2 text-sm font-medium hover:bg-pink-50 shadow-sm transition duration-150 flex items-center">
+              <svg class="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              Login
+            </button>
+          </div>
+        </form>
+
+        <!-- Mobile menu button (only when not logged in) -->
+        <div class="sm:hidden">
+          <button type="button"
+                  (click)="toggleMobileMenu()"
+                  class="relative inline-flex items-center justify-center rounded-full p-2 text-white hover:bg-white hover:bg-opacity-20 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-40 transition duration-150"
+                  aria-controls="mobile-menu"
+                  [attr.aria-expanded]="isMobileMenuOpen">
+            <span class="sr-only">Open login</span>
+            <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+          </button>
+        </div>
+      }
     </div>
   </div>
 
-  <!-- Mobile menu, show/hide based on menu state. -->
-  <div class="sm:hidden" [class.hidden]="!isMobileMenuOpen" id="mobile-menu">
-    <div class="space-y-1 px-2 pb-3 pt-2">
-      <!-- Current: "bg-white bg-opacity-20 text-white", Default: "text-white hover:bg-white hover:bg-opacity-20" -->
-      <a href="#" class="bg-white bg-opacity-20 text-white block rounded-md px-3 py-2 text-base font-medium flex items-center">
-        <svg class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path>
-        </svg>
-        Matches
-      </a>
-      <a href="#" class="text-white hover:bg-white hover:bg-opacity-20 block rounded-md px-3 py-2 text-base font-medium flex items-center">
-        <svg class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
-        </svg>
-        Lists
-      </a>
-      <a href="#" class="text-white hover:bg-white hover:bg-opacity-20 block rounded-md px-3 py-2 text-base font-medium flex items-center">
-        <svg class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"></path>
-          <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"></path>
-        </svg>
-        Messages
-      </a>
-      <div class="mt-4 border-t border-white border-opacity-20 pt-4">
-        <div class="space-y-2">
-          <div class="relative">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
-              </svg>
-            </div>
-            <input type="text" placeholder="Username" class="w-full rounded-lg pl-10 pr-3 py-2 text-sm text-gray-800 border border-transparent focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50 shadow-sm" />
-          </div>
-          <div class="relative">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
-              </svg>
-            </div>
-            <input type="password" placeholder="Password" class="w-full rounded-lg pl-10 pr-3 py-2 text-sm text-gray-800 border border-transparent focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50 shadow-sm" />
-          </div>
-          <button class="w-full bg-white text-pink-600 rounded-lg px-4 py-2 text-sm font-medium hover:bg-pink-50 shadow-sm transition duration-150 flex items-center justify-center">
-            <svg class="h-5 w-5 mr-1" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            Login
-          </button>
-        </div>
+  <!-- Mobile menu (only show relevant content based on login state) -->
+  <div class="sm:hidden" [ngClass]="{'hidden': !isMobileMenuOpen}" id="mobile-menu">
+    @if (accountService.currentUser()) {
+      <!-- Mobile navigation menu when logged in -->
+      <div class="space-y-1 px-2 pb-3 pt-2">
+        <a href="#" class="bg-white bg-opacity-20 text-white block rounded-md px-3 py-2 text-base font-medium flex items-center">
+          <svg class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path>
+          </svg>
+          Matches
+        </a>
+        <a href="#" class="text-white hover:bg-white hover:bg-opacity-20 block rounded-md px-3 py-2 text-base font-medium flex items-center">
+          <svg class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+          </svg>
+          Lists
+        </a>
+        <a href="#" class="text-white hover:bg-white hover:bg-opacity-20 block rounded-md px-3 py-2 text-base font-medium flex items-center">
+          <svg class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"></path>
+            <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"></path>
+          </svg>
+          Messages
+        </a>
+        <a href="#" class="text-white hover:bg-white hover:bg-opacity-20 block rounded-md px-3 py-2 text-base font-medium flex items-center">
+          <svg class="stroke-[1.5] w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 2048 2048"><path fill="currentColor" d="M1243 1236q-45-51-99-90t-116-67t-126-41t-134-14q-88 0-170 23t-153 64t-129 100t-100 130t-65 153t-23 170H0q0-120 35-231t101-205t156-167t204-115q-113-74-176-186t-64-248q0-106 40-199t109-163T568 40T768 0q106 0 199 40t163 109t110 163t40 200q0 66-16 129t-48 119t-75 103t-101 83q84 32 158 82t135 117l-90 91zM384 512q0 80 30 149t82 122t122 83t150 30q79 0 149-30t122-82t83-122t30-150q0-79-30-149t-82-122t-123-83t-149-30q-80 0-149 30t-122 82t-83 123t-30 149zm1464 384q42 0 78 15t64 41t42 63t16 79q0 39-15 76t-43 65l-717 717l-377 94l94-377l717-716q29-29 65-43t76-14zm51 249q21-21 21-51q0-31-20-50t-52-20q-14 0-27 4t-23 15l-692 692l-34 135l135-34l692-691z"/>
+          </svg>
+          Edit profile
+        </a>
+        <a (click)="logout()" class="text-white hover:bg-white hover:bg-opacity-20 block rounded-md px-3 py-2 text-base font-medium flex items-center cursor-pointer">
+          <svg class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"></path>
+          </svg>
+          Logout
+        </a>
       </div>
-    </div>
+    }
+
+    @if (!accountService.currentUser()) {
+      <!-- Mobile login form when not logged in -->
+      <form (ngSubmit)="login()" #mobileLoginForm="ngForm" autocomplete="off" class="px-2 py-3 space-y-2">
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <input type="text"
+                 name="username"
+                 [(ngModel)]="model.username"
+                 placeholder="Username"
+                 class="w-full rounded-lg pl-10 pr-3 py-2 text-sm text-gray-800 border border-transparent focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50 shadow-sm" />
+        </div>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <input type="password"
+                 name="password"
+                 [(ngModel)]="model.password"
+                 placeholder="Password"
+                 class="w-full rounded-lg pl-10 pr-3 py-2 text-sm text-gray-800 border border-transparent focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50 shadow-sm" />
+        </div>
+        <button type="submit" class="w-full bg-white text-pink-600 rounded-lg px-4 py-2 text-sm font-medium hover:bg-pink-50 shadow-sm transition duration-150 flex items-center justify-center">
+          <svg class="h-5 w-5 mr-1" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+          </svg>
+          Login
+        </button>
+      </form>
+    }
   </div>
 </nav>
