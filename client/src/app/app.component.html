@@ -1,9 +1,6 @@
 <app-nav-bar></app-nav-bar>
 
-<ul>
-  @for (user of users; track user.id) {
-    <li>
-      {{ user.id }} - {{ user.userName }}
-    </li>
-  }
-</ul>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+

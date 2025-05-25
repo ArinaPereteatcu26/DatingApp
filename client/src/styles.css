@@ -1,4 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'ngx-toastr/toastr'; /* You can add global styles to this file, and also import other style files */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.custom-toast {
+  @apply bg-gray-900 text-white p-4 rounded-lg shadow-lg;
+}
+.custom-toast-title {
+  @apply font-bold text-lg;
+}
+.custom-toast-message {
+  @apply text-sm;
+}
